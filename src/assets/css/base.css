@@ -1,0 +1,15 @@
+/* 犯了一个小错误，未加结束符号；导致报错未找到原因 */
+
+@import './normalize.css';
+
+
+
+:root{
+  /* 定义变量 */
+ --color-text:#666;
+ --color-high-text:#f57777;
+ /* nav颜色 */
+ --color-tint:#ff8198;
+ --font-size:14px;
+}
+
