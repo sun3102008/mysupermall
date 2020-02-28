@@ -13,6 +13,11 @@ import {Swiper,SwiperItem} from 'components/common/swiper/index'
 
 export default {
   name:'HomeSwiper',
+  data(){
+    return {
+      isLoad:false
+    }
+  },
   props:{
     sonBanners:{
       type:Array,
@@ -24,8 +29,13 @@ export default {
   },
   methods:{
     imgLoad (){
+      //监听图片是否加载完成,将发送4张轮播图改为一张，提升性能
       // console.log('-------')offsetTop
-      this.$emit('swiperImgLoad')
+      if(!this.isLoad){
+        //只发出一次事件
+        this.$emit('swiperImgLoad')
+        this.isLoad = true
+      }
     }
   },
   components:{

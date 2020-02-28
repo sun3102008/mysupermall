@@ -42,7 +42,12 @@ export default {
     refresh(){
       // console.log(23232)
       this.bscroll.refresh()
+    },
+    //获取y值
+    getScrollY (){
+      return this.bscroll ? this.bscroll.y : 0
     }
+
   },
   mounted() {
     // console.log(this.$refs.wrapper)
@@ -53,8 +58,6 @@ export default {
     
     })
     // console.log(this.bscroll)可以打印scroll对象
-
-    
 
 
     //scroll自带方法,有第三个参数(毫秒)

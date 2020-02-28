@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-item">
+  <div class="goods-item" @click="goodsClick">
     <img :src="goodsItem.show.img" @load='imgLoad'>
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
@@ -24,6 +24,12 @@ export default {
     //利用事件总线，传递事件
     imgLoad(){
       this.$bus.$emit('imgEmit')
+    },
+    goodsClick (){
+      // console.log('跳转到详情页').replace 没有返回按钮
+      //当跳转到详情页时，需向其传递图片id
+      this.$router.push('/detail/'+this.goodsItem.iid)
+
     }
   }
 }

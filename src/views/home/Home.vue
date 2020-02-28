@@ -1,8 +1,16 @@
 <template>
-  <div id="home">
+  <div id="home" class="wrapper">
     <nav-bar class="home-nav">
       <div  slot="center">购物街</div>
     </nav-bar>
+    <tab-control 
+        :sonTitle="['流行','新款','精选']"
+        class='tab-control'
+        @sonTabClick='fooTabClick'
+        ref='tabControl1'
+        v-show='isTabFixed'
+    >
+    </tab-control>
     <!-- nav-bar不需要滚动 -->
     <scroll class="content" ref="bscroll" 
       :probe-type='3' @scroll='fooScroll'
@@ -17,9 +25,9 @@
       <home-pop></home-pop>
       <tab-control 
         :sonTitle="['流行','新款','精选']"
-        class='tab-control'
         @sonTabClick='fooTabClick'
-        ref='tabControl'
+        ref='tabControl2'
+
       >
       </tab-control>
       <goods-list 
@@ -70,7 +78,9 @@ export default {
       },
       currentType:'pop',
       isBackTop:false,
-      tabOffsetTop:0
+      tabOffsetTop:0,
+      isTabFixed:false,
+      saveY:0
     }
   },
   created () {
@@ -103,7 +113,10 @@ export default {
       // }else{
       //   return false;
       // }
-      this.isBackTop = -position.y >1000
+      this.isBackTop = (-position.y) >1000
+      //决定tabControl是否吸顶(position:fixed)
+      this.isTabFixed = (-position.y) >this.tabOffsetTop
+
      },
     //接收scroll 传来的滚动到底部的 事件
     fooPullingUp(){
@@ -126,12 +139,14 @@ export default {
           this.currentType = 'sell'
           break
       }
-       
+       this.$refs.tabControl1.currentIndex = index;
+       this.$refs.tabControl2.currentIndex = index;
     },
   
-  //swiper的offsetTop
+  //监听swiper的图片是否加载完成，offsetTop
   fooswiperImgLoad (){
-    console.log(this.$refs.tabControl.$el.offsetTop)
+    // console.log(this.$refs.tabControl.$el.offsetTop,540)
+    this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop
   },
 
 
@@ -175,48 +190,63 @@ export default {
        refresh()
      })
     // 1.获取tabControl的offsetTop(此时的offsetTop是未加载完的图片距离)
-    //  this.tabOffsetTop = this.$refs.tabControl
+    //  this.tabOffsetTop = this.$refs.tabControl(获取组件对象)
     // console.log(this.$refs.tabControl.$el.offsetTop)
-},
+   },
+   destroyed(){
+     console.log('home 销毁了')
+   },
+   activated(){
+    //  console.log('当前位置')
+    this.$refs.bscroll.scrollTo(0,this.saveY,0)
 
+    this.$refs.bscroll.refresh()
+   },
+   deactivated(){
+    //  console.log('离开的位置')
+    this.saveY = this.$refs.bscroll.getScrollY()
+    // console.log(this.saveY)
+   }
 
 }
 </script>
 <style scoped>
   #home{
-    padding-top:44px;
+    /* padding-top:44px; */
 
     position: relative;
-    /* height: 100vh; */
+    height: 100vh;
   }
   .home-nav{
     background-color:var(--color-tint);
     color:#fff;
-
+/* 
     position: fixed;
     left:0;
     right: 0;
     top:0;
+    z-index: 9; */
+  }
+  .tab-control{
+    position: relative;
+    background-color:#fff;
     z-index: 9;
   }
-  /* .tab-control{ */
-    /* position: sticky; */
-    /* top:44px; */
-    /* background-color: #fff; */
-    /* z-index: 9; */
-  /* } */
+
+
   /* content的高度利用定位，top=顶部高度，
   *bottom=tabbar高度，左右为0
   */
   .content{
-    /* height: 300px; */
-    background-color: blue;
-    /* overflow: hidden; */
-
+    overflow: hidden;
+    
     position: absolute;
     top:44px;
     bottom:40px;
     left:0;
     right:0;
+
+    /* height: 300px;
+    background-color: blue; */
   }
 </style>
