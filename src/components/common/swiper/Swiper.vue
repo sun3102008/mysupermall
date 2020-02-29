@@ -22,8 +22,9 @@
         default: 3000
       },
       animDuration: {
+        //多久开始轮播
 		    type: Number,
-        default: 300
+        default: 200
       },
       moveRatio: {
         type: Number,

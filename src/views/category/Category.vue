@@ -1,6 +1,10 @@
 <template>
   <div class="wrapper">
       <scroll :probe-type='2' class="content">
+        <div v-for="i in arr1.length-1">
+          {{i}}
+        </div>
+        <h2>这是分割线------</h2>
         <ul>
           <li>1</li>
           <li>2</li>
@@ -60,6 +64,11 @@
 import Scroll from 'components/common/scroll/Scroll'
 export default {
   name:'Category',
+  data (){
+    return{
+      arr1:[1,2,3,4]
+    }
+  },
   components:{
     Scroll
   }

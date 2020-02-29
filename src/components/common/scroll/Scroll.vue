@@ -43,9 +43,10 @@ export default {
       // console.log(23232)
       this.bscroll.refresh()
     },
-    //获取y值
+    //scroll自带属性scroll.y ,就可以获取y值
     getScrollY (){
-      return this.bscroll ? this.bscroll.y : 0
+      //如果y值有就返回y,没有值就返回0
+      return this.bscroll.y ? this.bscroll.y : 0
     }
 
   },

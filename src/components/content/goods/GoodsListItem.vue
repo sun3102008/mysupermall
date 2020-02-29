@@ -26,10 +26,18 @@ export default {
       this.$bus.$emit('imgEmit')
     },
     goodsClick (){
-      // console.log('跳转到详情页').replace 没有返回按钮
-      //当跳转到详情页时，需向其传递图片id
+      // console.log(this.goodsItem.iid,'跳转到详情页')
+      // replace 没有返回按钮
+      //当跳转到详情页时，需向其传递图片iid
       this.$router.push('/detail/'+this.goodsItem.iid)
 
+      //若不采用动态路由获取iid
+      // this.$router.push({
+      //   path:'/detail',
+      //   query:{
+      //     iid:this.product.iid
+      //   }
+      // })     
     }
   }
 }

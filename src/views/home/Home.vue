@@ -80,6 +80,7 @@ export default {
       isBackTop:false,
       tabOffsetTop:0,
       isTabFixed:false,
+      //记录滚动到最后的位置
       saveY:0
     }
   },
@@ -197,15 +198,15 @@ export default {
      console.log('home 销毁了')
    },
    activated(){
-    //  console.log('当前位置')
+     console.log('进入home当前位置')
     this.$refs.bscroll.scrollTo(0,this.saveY,0)
 
     this.$refs.bscroll.refresh()
    },
    deactivated(){
-    //  console.log('离开的位置')
+    //  console.log('home离开的位置')
     this.saveY = this.$refs.bscroll.getScrollY()
-    // console.log(this.saveY)
+    console.log(this.saveY)
    }
 
 }
