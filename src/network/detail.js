@@ -8,6 +8,12 @@ export function getDetail(iid){
     }
   })
 }
+//获取详情页的推荐数据
+export function getRecommend (){
+  return request({
+    url:'/recommend'
+  })
+}
 
 //将数据整合
 export class GoodsInfo {

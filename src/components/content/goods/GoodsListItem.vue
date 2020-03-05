@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="goodsClick">
-    <img :src="goodsItem.show.img" @load='imgLoad'>
+    <img :src="showImg" @load='imgLoad'>
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -21,9 +21,13 @@ export default {
     }
   },
   methods:{
+
     //利用事件总线，传递事件
     imgLoad(){
-      this.$bus.$emit('imgEmit')
+      //路由是home，才发出图片的点击事件
+      if(this.$route.path.indexOf('/home')){
+        this.$bus.$emit('imgEmit')
+      }
     },
     goodsClick (){
       // console.log(this.goodsItem.iid,'跳转到详情页')
@@ -38,6 +42,13 @@ export default {
       //     iid:this.product.iid
       //   }
       // })     
+    }
+  },
+  computed:{
+    showImg (){
+      //this.goodsItem.image 是detail详情页的推荐数据
+      //this.goodsItem.show.img 是home页面
+      return this.goodsItem.image || this.goodsItem.show.img
     }
   }
 }

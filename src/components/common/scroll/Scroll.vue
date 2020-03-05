@@ -30,7 +30,8 @@ export default {
   methods:{
     //封装返回顶部的方法
     scrollTo(x,y,time){
-      return this.bscroll && this.bscroll.scrollTo(x,y,time)
+      // console.log(111)
+      this.bscroll && this.bscroll.scrollTo(x,y,time)
     },
 
     //上拉加载结束
@@ -43,10 +44,9 @@ export default {
       // console.log(23232)
       this.bscroll.refresh()
     },
-    //scroll自带属性scroll.y ,就可以获取y值
+    //获取y值
     getScrollY (){
-      //如果y值有就返回y,没有值就返回0
-      return this.bscroll.y ? this.bscroll.y : 0
+      return this.bscroll ? this.bscroll.y : 0
     }
 
   },

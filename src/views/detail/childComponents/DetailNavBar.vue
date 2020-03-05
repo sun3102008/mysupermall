@@ -33,9 +33,11 @@ export default {
     itemClick (index) {
       // console.log(index)
       this.currentIndex = index
+      this.$emit('detailNavBarClick',index)
     },
     backClick (){
       //也可以用this.$router.back
+      //前进forword
       this.$router.go(-1)
     }
   }

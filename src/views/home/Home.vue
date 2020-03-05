@@ -35,7 +35,7 @@
       ></goods-list>
     </scroll>
       <!-- 返回顶部图标 -->
-    <back-top @click.native="backClick" v-show='isBackTop'></back-top>
+    <back-top @click.native="backTop" v-show='isBackTop'></back-top>
   </div>
 
 </template>
@@ -53,6 +53,8 @@ import TabControl from 'components/content/tabControl/TabControl'
 
 import {getHomeData,getHomeGoods} from 'network/home'
 import {debounce} from 'components/common/utils'
+
+import {itemListMixin} from 'components/common/mixin'
 
 export default {
   name:'Home',
@@ -77,6 +79,7 @@ export default {
         'sell':{page:0,list:[]}
       },
       currentType:'pop',
+      //backtop的参数
       isBackTop:false,
       tabOffsetTop:0,
       isTabFixed:false,
@@ -84,18 +87,19 @@ export default {
       saveY:0
     }
   },
+  mixins:[itemListMixin],
   created () {
     //在home.js中获取home的数据
-    this.getHomeData()
+    // this.getHomeData()
     //2.获取goods页面数据,传'pop',页码
-    this.getHomeGoods('pop')
-    this.getHomeGoods('new')
-    this.getHomeGoods('sell')
+    // this.getHomeGoods('pop')
+    // this.getHomeGoods('new')
+    // this.getHomeGoods('sell')
     
   },
   methods:{
      //返回上部的监听事件
-     backClick (){
+     backTop (){
       //  console.log(this.$refs.scroll.msg)
       // 通过this.$refs.scroll可以拿到scroll对象，
       //this.$refs.scroll.msg就可以访问到scroll对象的属性
@@ -151,7 +155,6 @@ export default {
   },
 
 
-
     //网络请求相关的方法
      //在home.js中获取home的数据
     getHomeData () {
@@ -195,18 +198,18 @@ export default {
     // console.log(this.$refs.tabControl.$el.offsetTop)
    },
    destroyed(){
-     console.log('home 销毁了')
+    //  console.log('home 销毁了')
    },
    activated(){
-     console.log('进入home当前位置')
+    //  console.log('进入home当前位置')
     this.$refs.bscroll.scrollTo(0,this.saveY,0)
 
     this.$refs.bscroll.refresh()
    },
    deactivated(){
-    //  console.log('home离开的位置')
+    //  保存scroll 的y值
     this.saveY = this.$refs.bscroll.getScrollY()
-    console.log(this.saveY)
+    // console.log(this.saveY)
    }
 
 }

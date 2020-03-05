@@ -1,10 +1,8 @@
 <template>
   <div class="wrapper">
       <scroll :probe-type='2' class="content">
-        <div v-for="i in arr1.length-1">
-          {{i}}
-        </div>
-        <h2>这是分割线------</h2>
+        <h2>{{$store.state.detailCartList.length}}</h2>
+        <h2>这是分割线dsd------</h2>
         <ul>
           <li>1</li>
           <li>2</li>

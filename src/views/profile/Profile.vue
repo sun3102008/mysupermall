@@ -1,5 +1,6 @@
 <template>
   <div class="profile" ref="profile">
+    <h2 v-for="item in this.$store.state.detailCartList">{{item}}</h2>
     <ul>
       <li>1</li>
       <li>2</li>
@@ -75,7 +76,8 @@ export default {
         bscroll.finishPullUp()
       }, 2000);
     })
-  }
+  },
+
 }
 </script>
 <style scoped>
